@@ -1,0 +1,12 @@
+project_name: terangapay
+docker_network: terangapay-network
+postgres_container: terangapay-postgres
+app_container: terangapay-app
+proxy_container: terangapay-nginx
+postgres_image: postgres:16-alpine
+app_image: terangapay-app:1.1
+proxy_image: nginx:alpine
+postgres_db: terangapay
+postgres_user: teranga
+app_port: 8080
+proxy_port: 8080

@@ -1,0 +1,32 @@
+- name: Construire l'image Flask
+  community.docker.docker_image:
+    name: "{{ app_image }}"
+    source: build
+    build:
+      path: "{{ playbook_dir }}/../app"
+    force_source: false
+
+- name: Démarrer le conteneur Flask
+  community.docker.docker_container:
+    name: "{{ app_container }}"
+    image: "{{ app_image }}"
+    state: started
+    restart_policy: unless-stopped
+    user: "10001:10001"
+    env:
+      DB_HOST: "{{ postgres_container }}"
+      DB_NAME: "{{ postgres_db }}"
+      DB_USER: "{{ postgres_user }}"
+      DB_PASSWORD: "{{ lookup('env', 'POSTGRES_PASSWORD') }}"
+    networks:
+      - name: "{{ docker_network }}"
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import urllib.request; urllib.request.urlopen('http://localhost:8080/health')"
+      interval: 30s
+      timeout: 5s
+      retries: 3
+  no_log: true

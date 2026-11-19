@@ -1,0 +1,34 @@
+PREUVE : IDEMPOTENCE ANSIBLE
+Thu Nov 19 19:34:44 UTC 2026
+Mot de passe PostgreSQL :
+
+PLAY [Déployer TerangaPay sur Docker local] ************************************
+
+TASK [database : Vérifier que le conteneur PostgreSQL existe] ******************
+[WARNING]: Host 'localhost' is using the discovered Python interpreter at '/usr/bin/python3.14', but future installation of another Python interpreter could cause a different interpreter to be discovered. See https://docs.ansible.com/ansible-core/2.20/reference_appendices/interpreter_discovery.html for more information.
+ok: [localhost]
+
+TASK [database : Vérifier que PostgreSQL est démarré] **************************
+ok: [localhost] => {
+    "changed": false,
+    "msg": "PostgreSQL est démarré et son volume existant est préservé."
+}
+
+TASK [app : Construire l'image Flask] ******************************************
+ok: [localhost]
+
+TASK [app : Démarrer le conteneur Flask] ***************************************
+ok: [localhost]
+
+TASK [proxy : Créer le répertoire de configuration Nginx] **********************
+ok: [localhost]
+
+TASK [proxy : Installer la configuration Nginx] ********************************
+ok: [localhost]
+
+TASK [proxy : Démarrer le reverse proxy Nginx] *********************************
+ok: [localhost]
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=7    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+

@@ -1,0 +1,25 @@
+- name: Créer le répertoire de configuration Nginx
+  ansible.builtin.file:
+    path: "{{ playbook_dir }}/../infrastructure/nginx"
+    state: directory
+    mode: "0755"
+
+- name: Installer la configuration Nginx
+  ansible.builtin.template:
+    src: nginx.conf.j2
+    dest: "{{ playbook_dir }}/../infrastructure/nginx/nginx.conf"
+    mode: "0644"
+  notify: Redémarrer Nginx
+
+- name: Démarrer le reverse proxy Nginx
+  community.docker.docker_container:
+    name: "{{ proxy_container }}"
+    image: "{{ proxy_image }}"
+    state: started
+    restart_policy: unless-stopped
+    ports:
+      - "127.0.0.1:8080:80"
+    networks:
+      - name: "{{ docker_network }}"
+    volumes:
+      - "{{ playbook_dir }}/../infrastructure/nginx/nginx.conf:/etc/nginx/nginx.conf:ro"

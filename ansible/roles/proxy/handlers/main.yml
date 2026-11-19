@@ -1,0 +1,5 @@
+- name: Redémarrer Nginx
+  community.docker.docker_container:
+    name: "{{ proxy_container }}"
+    state: started
+    restart: true

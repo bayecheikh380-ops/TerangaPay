@@ -1,0 +1,8 @@
+- name: Déployer TerangaPay sur Docker local
+  hosts: local
+  gather_facts: false
+
+  roles:
+    - database
+    - app
+    - proxy

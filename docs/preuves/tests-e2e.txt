@@ -1,0 +1,11 @@
+PREUVE : TESTS E2E TERANGAPAY
+Thu Nov 19 19:34:39 UTC 2026
+bash tests/e2e.sh
+===== TEST 1 : ACCUEIL =====
+OK : page d'accueil accessible
+===== TEST 2 : SANTE API =====
+OK : API opérationnelle
+===== TEST 3 : CONNEXION BASE DE DONNEES =====
+OK : connexion PostgreSQL opérationnelle
+===== RESULTAT =====
+Tous les tests de bout en bout sont réussis.
