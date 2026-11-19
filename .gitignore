@@ -29,3 +29,10 @@ venv/
 # Sauvegardes et plans OpenTofu
 backups/
 *.tfplan
+# Agent GitOps
+gitops/agent_gitops.pid
+
+# Fichiers temporaires et secrets supplémentaires
+.env
+.vault_pass
+*.tfplan

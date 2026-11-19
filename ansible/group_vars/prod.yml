@@ -1,0 +1,3 @@
+app_environment: prod
+debug_mode: false
+app_image: terangapay-app:1.1

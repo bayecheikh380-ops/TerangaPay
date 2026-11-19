@@ -4,8 +4,11 @@ data "docker_network" "teranga_network" {
 
 resource "docker_volume" "postgres_data" {
   name = "terangapay-postgres-data"
-}
 
+  lifecycle {
+    prevent_destroy = true
+  }
+}
 module "postgres" {
   source = "../modules/conteneur"
 

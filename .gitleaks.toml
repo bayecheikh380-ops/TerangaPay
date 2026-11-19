@@ -1,0 +1,13 @@
+
+title = "TerangaPay Gitleaks Configuration"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Exclusions des fichiers non pertinents"
+paths = [
+  '''(^|/)\\.terraform/''',
+  '''(^|/)backups/''',
+  '''(^|/)\\.git/'''
+]

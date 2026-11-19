@@ -1,13 +1,12 @@
 - name: Vérifier que le conteneur PostgreSQL existe
   community.docker.docker_container_info:
     name: "{{ postgres_container }}"
-  register: postgres_info
+  register: database_postgres_info
   changed_when: false
-
 - name: Vérifier que PostgreSQL est démarré
   ansible.builtin.assert:
     that:
-      - postgres_info.exists
-      - postgres_info.container.State.Running
+      - database_postgres_info.exists
+      - database_postgres_info.container.State.Running
     fail_msg: "Le conteneur PostgreSQL est absent ou arrêté."
     success_msg: "PostgreSQL est démarré et son volume existant est préservé."
