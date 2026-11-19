@@ -1,41 +1,34 @@
 data "docker_network" "teranga_network" {
-  name = "terangapay-network"
+  name = var.network_name
 }
 
 resource "docker_volume" "postgres_data" {
   name = "terangapay-postgres-data"
 }
 
-resource "docker_container" "postgres" {
-  name  = "terangapay-postgres"
-  image = "postgres:16-alpine"
+module "postgres" {
+  source = "../modules/conteneur"
 
-  restart = "unless-stopped"
+  container_name = "terangapay-postgres"
+  image          = var.postgres_image
+  network_name   = data.docker_network.teranga_network.name
 
-  env = [
-    "POSTGRES_DB=terangapay",
-    "POSTGRES_USER=teranga",
+  environment = [
+    "POSTGRES_DB=${var.postgres_db}",
+    "POSTGRES_USER=${var.postgres_user}",
     "POSTGRES_PASSWORD=${var.postgres_password}"
   ]
 
-  networks_advanced {
-    name = data.docker_network.teranga_network.name
-  }
-
-  volumes {
-    volume_name    = docker_volume.postgres_data.name
-    container_path = "/var/lib/postgresql/data"
-  }
+  volume_name    = docker_volume.postgres_data.name
+  container_path = "/var/lib/postgresql/data"
 }
-resource "docker_container" "redis" {
-  name  = "terangapay-redis"
-  image = "redis:7-alpine"
 
-  restart = "unless-stopped"
+module "redis" {
+  source = "../modules/conteneur"
+
+  container_name = "terangapay-redis"
+  image          = var.redis_image
+  network_name   = data.docker_network.teranga_network.name
 
   command = ["redis-server", "--appendonly", "yes"]
-
-  networks_advanced {
-    name = data.docker_network.teranga_network.name
-  }
 }

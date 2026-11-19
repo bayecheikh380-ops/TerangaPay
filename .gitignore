@@ -26,3 +26,6 @@ venv/
 # Logs et fichiers temporaires
 *.log
 .DS_Store
+# Sauvegardes et plans OpenTofu
+backups/
+*.tfplan

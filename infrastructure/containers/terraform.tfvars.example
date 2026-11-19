@@ -1,0 +1,6 @@
+postgres_password = "CHANGE_ME_WITH_A_SECURE_PASSWORD"
+postgres_db       = "terangapay"
+postgres_user     = "teranga"
+postgres_image    = "postgres:16-alpine"
+redis_image       = "redis:7-alpine"
+network_name      = "terangapay-network"
