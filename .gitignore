@@ -1,0 +1,29 @@
+# Secrets
+.env
+.env.*
+!.env.example
+*.vault
+secrets/
+*.pem
+*.key
+
+# Terraform / OpenTofu
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+!*.tfvars.example
+.terraform.lock.hcl
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Ansible
+*.retry
+
+# Logs et fichiers temporaires
+*.log
+.DS_Store
